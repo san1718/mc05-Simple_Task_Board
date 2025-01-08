@@ -38,7 +38,7 @@ function createTaskCard(task) {
 function renderTaskList() {
     let taskList = JSON.stringify(localStorage.getItem('tasks')) || [];
 
-    for (i=0; i<taskList.length; i++) {
+    for (i = 0; i < taskList.length; i++) {
         const tdCard = createTaskCard(taskList[i]);
 
         $('#todo-cards').append(tdCard);
