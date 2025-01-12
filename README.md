@@ -18,6 +18,12 @@ It is an easier way to get the user's busy days sorted to see which task to comp
 
 ## Summary
 An easier way to sort the user's tasks from start to end
+
+## Links
+[Home](https://github.com/san1718/mc05_Third-PartyAPIs)
+<br />
+[Deployed]()
+
 ## Screenshots
 <img width="1000" alt="Homepage" src="">
 <img width="1000" alt="Homepage" src="">
