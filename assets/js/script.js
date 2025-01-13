@@ -14,15 +14,26 @@ function generateTaskId() {
     }
     // Creating storage after getting nextId string
     localStorage.setItem('nextId', json.stringify(nextId));
+    console.log(nextId);
     return nextId;
 }
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
     console.log(task);
-    const taskCard = $("<div>")
+    const taskCard = $("<div></div>")
         .addClass("card task-card draggable my-3")
-        .attr("data-task-id", task.id);
+        .attr("data-task-id", task.id)
+        .draggable({
+            start: function () {
+                $(this).addClass("dragging");
+            },
+            stop: function () {
+                $(this.removeClass("dragging"));
+            },
+            snap: ".lane",
+            snapMode: "inner",
+        });
     const cardHeader = $("<div>").addClass("card-header h4").text(task.title);
     const cardBody = $("<div>").addClass("card-body");
     const cardDescription = $("<p>").addClass("card-text").text(task.description);
@@ -30,8 +41,27 @@ function createTaskCard(task) {
     const cardDeleteBtn = $("<button>")
         .addClass("btn btn-danger delete")
         .text("Delete")
-        .attr("data-task-id", task.id);
-    cardDeleteBtn.on("click", handleDeleteTask);
+        .attr("data-task-id", task.id)
+        .on("click", handleDeleteTask);
+    // cardDeleteBtn.on("click", handleDeleteTask);
+    
+    // Will get the current day and status
+    if (task.date) {
+        const now = dayjs();
+        const taskDate = dayjs(task.date);
+
+        if (now.isSame(taskDate, "day")) {
+            taskCard.addClass("bg-warning text-white");
+        }
+        else if (now.isAfter(taskDate)) {
+            cardBody.addClass("bg-danger text-white");
+        }
+    }
+
+    // Appending elements to cards
+    cardBody.append(cardDescription, cardDueDate, cardDeleteBtn);
+    cardBody.append(cardHeader, cardBody);
+    return taskCard;
 }
 
 // Todo: create a function to render the task list and make cards draggable

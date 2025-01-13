@@ -26,5 +26,5 @@ An easier way to sort the user's tasks from start to end
 
 ## Screenshots
 <img width="1000" alt="Homepage" src="">
-<img width="1000" alt="Homepage" src="">
-<img width="1000" alt="Homepage" src="">
+<img width="1000" alt="addTask" src="">
+<img width="1000" alt="removeTask" src="">
