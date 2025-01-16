@@ -28,3 +28,8 @@ An easier way to sort the user's tasks from start to end
 <img width="1000" alt="Homepage" src="">
 <img width="1000" alt="addTask" src="">
 <img width="1000" alt="removeTask" src="">
+
+## Credits
+Office Hours
+HTML and JS help: Thomas WHite, Tala Awwad
+[Bootstrap](https://getbootstrap.com/)
