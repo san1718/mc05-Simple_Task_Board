@@ -115,13 +115,61 @@ function handleAddTask(event) {
     console.error('Could not save to local storage, error: ', error);
     alert('Task could not be saved. Try again later.');
   }
+  // Clears all for new input and hides modal
+  $('taskTitle').val('');
+  $('#taskDate').val('');
+  $('#taskDescription').val('');
+  $('#modal').modal('hide');
 }
 
+function renderTaskList() {
+  $('#to-do-cards').empty();
+  let tasksToRender = taskList;
+  tasksToRender.forEach((task) => {
+    const taskElement = createTaskCard(task);
+    console.log(taskElement);
+    if (task.status === '#todo-cards') {
+      $('#to-do-cards').append(taskElement);
+    } else if (task.status === 'in-progress-cards') {
+      $('#in-progress-cards').append(taskElement);
+    } else {
+      $('done-cards').append(taskElement);
+    }
+  });
+}
+// Sorting tasks and re-rendering
+$('#sortOptions').on('change', function() {
+  const selectedT = $(this).val();
+  renderTaskList(selectedT);
+});
+// Reading tasks that are in the local storage
+const readTS = () => {
+  const tasks = localStorage.getItem('tasks');
+  return tasks ? JSON.parse(tasks) : [];
+};
+// Saving tasks in the local storage
+const saveTS = (tasks) => {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+};
+
 // Todo: create a function to handle deleting a task
-function handleDeleteTask(event) {}
+function handleDeleteTask() {
+  const taskId = $(this).attr('data-task-id');
+  let tasks = readTS();
+  // Filtering task by ID
+  tasks = tasks.filter((task) => task.id !== taskId);
+  // Saving task and rendering
+  saveTS(tasks);
+  renderTaskList();
+}
 
 // Todo: create a function to handle dropping a task into a new status lane
-function handleDrop(event, ui) {}
+function handleDrop(event, ui) {
+  const droppedTaskId = ui.draggable[0].dataset.taskId;
+  const newStat = event.target.id;
+
+  
+}
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
@@ -137,7 +185,7 @@ $("#taskDate").datepicker({
 });
 
 try {
-  saveTasksToStorage(tasks);
+  saveTS(tasks);
   renderTaskListt();
 } catch (error) {
   console.error("Couldn't save task. Error: ", error);
