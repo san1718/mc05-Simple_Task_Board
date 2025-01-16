@@ -1,10 +1,10 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
-let nextId = JSON.parse(localStorage.getItem("nextId"));
+let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
+let nextId = JSON.parse(localStorage.getItem("nextId")) || 1;
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
-  // If statement if nextId doesn't exist/there's no value. Makes it start at 1
+  // If statement if nextId doesn"t exist/there"s no value. Makes it start at 1
   if (nextId === null) {
     nextId = 1;
   }
@@ -13,7 +13,7 @@ function generateTaskId() {
     nextId++;
   }
   // Creating storage after getting nextId string
-  localStorage.setItem("nextId", json.stringify(nextId));
+  localStorage.setItem("nextId", JSON.stringify(nextId));
   console.log(nextId);
   return nextId;
 }
@@ -37,7 +37,7 @@ function createTaskCard(task) {
   const cardHeader = $("<div>").addClass("card-header h4").text(task.title);
   const cardBody = $("<div>").addClass("card-body");
   const cardDescription = $("<p>").addClass("card-text").text(task.description);
-  const cardDueDate = $("<p>").addClass("card-text").text(text.date);
+  const cardDueDate = $("<p>").addClass("card-text").text(task.date);
   const cardDeleteBtn = $("<button>")
     .addClass("btn btn-danger delete")
     .text("Delete")
@@ -67,17 +67,17 @@ function createTaskCard(task) {
 $(document).ready(function () {
   renderTaskList();
   // Making buttons clickable
-  $('#submit').click(handleAddTask);
-  $('#taskDueDate').datepicker({ changeMonth: true, changeYear: true });
-  $('#save-button').click(handleAddTask);
+  $("#submit").click(handleAddTask);
+  $("#taskDueDate").datepicker({ changeMonth: true, changeYear: true });
+  $("#save-button").click(handleAddTask);
 
   // Creating element for taskButton
-  const taskButtonEl = document.getElementById('taskButton');
+  const taskButtonEl = document.getElementById("taskButton");
   // Creates task that can be dropped and dragged
   if (taskButtonEl) {
-    taskButtonEl.addEventListener('click', handleAddTask);
-    $('.lane').droppable({
-      accept: '.draggable',
+    taskButtonEl.addEventListener("click", handleAddTask);
+    $(".lane").droppable({
+      accept: ".draggable",
       drop: handleDrop,
     });
   }
@@ -85,76 +85,78 @@ $(document).ready(function () {
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event) {
-  console.log(event);
   event.preventDefault();
 
   const taskTitle = $("#taskTitle").val();
   const taskDate = $("#taskDate").val();
   const taskDescription = $("#taskDescription").val();
-  
+
   // Getting valid input
   if (!taskTitle || !taskDate || !taskDescription) {
     alert("Fill in all of the contents.");
     return;
   }
+  const formattedDate = dayjs(taskDate, "MM/DD/YYYY").format(
+    "YYYY-MM-DDTHH:mm"
+  );
 
   const task = {
     id: generateTaskId(),
     title: taskTitle,
     date: taskDate,
     description: taskDescription,
-    status: '#todo-cards',
+    status: "#todo-cards",
   };
-  
+
   taskList.push(task);
   // Local storage updates after pushing
   try {
-    localStorage.setItem('tasks', JSON.stringify(taskList));
+    localStorage.setItem("tasks", JSON.stringify(taskList));
     renderTaskList();
   } catch (error) {
-    console.error('Could not save to local storage, error: ', error);
-    alert('Task could not be saved. Try again later.');
+    console.error("Could not save to local storage, error: ", error);
+    alert("Task could not be saved. Try again later.");
   }
   // Clears all for new input and hides modal
-  $('taskTitle').val('');
-  $('#taskDate').val('');
-  $('#taskDescription').val('');
-  $('#modal').modal('hide');
+  $("taskTitle").val("");
+  $("#taskDate").val("");
+  $("#taskDescription").val("");
+  $("#modal").modal("hide");
 }
 
 function renderTaskList() {
-  $('#to-do-cards').empty();
+  $("#to-do-cards").empty();
   let tasksToRender = taskList;
   tasksToRender.forEach((task) => {
     const taskElement = createTaskCard(task);
     console.log(taskElement);
-    if (task.status === '#todo-cards') {
-      $('#to-do-cards').append(taskElement);
-    } else if (task.status === 'in-progress-cards') {
-      $('#in-progress-cards').append(taskElement);
+    if (task.status === "#todo-cards") {
+      $("#to-do-cards").append(taskElement);
+    } else if (task.status === "in-progress-cards") {
+      $("#in-progress-cards").append(taskElement);
     } else {
-      $('done-cards').append(taskElement);
+      $("done-cards").append(taskElement);
     }
   });
 }
 // Sorting tasks and re-rendering
-$('#sortOptions').on('change', function() {
+$("#sortOptions").on("change", function () {
   const selectedT = $(this).val();
   renderTaskList(selectedT);
 });
 // Reading tasks that are in the local storage
 const readTS = () => {
-  const tasks = localStorage.getItem('tasks');
+  const tasks = localStorage.getItem("tasks");
   return tasks ? JSON.parse(tasks) : [];
 };
 // Saving tasks in the local storage
 const saveTS = (tasks) => {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask() {
-  const taskId = $(this).attr('data-task-id');
+  const taskId = $(this).attr("data-task-id");
   let tasks = readTS();
   // Filtering task by ID
   tasks = tasks.filter((task) => task.id !== taskId);
@@ -165,59 +167,49 @@ function handleDeleteTask() {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+  // Getting the dropped task's ID
   const droppedTaskId = ui.draggable[0].dataset.taskId;
-  const newStat = event.target.id;
+  // Getting the ID of the drop target (new lane)
+  const newStatus = event.target.id;
   
-  let tasks = readTS();
-  // Gets new status
-  tasks = tasks.map((task) => {
-    if (task.id === droppedTaskId) {
-      return { ...task, status: newStat };
-    }
-    return task;
-  });
-  // Saving updated tasks and rendering
-  saveTS(tasks);
-  renderTaskList();
-}
-$(document).on('click', '.delete', handleDeleteTask);
-
-// Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-function handleDrop(event, ui) {
-  const droppedTaskId = ui.draggable[0].dataset.taskId;
-  const newStat = event.target.id;
-  let tasks = readTS();
-  console.log(droppedTaskId);
-  console.log(newStat);
+  // Reading tasks from localStorage
+  let tasks = readTS(); 
+  console.log(`Dropped Task ID: ${droppedTaskId}`);
+  console.log(`New Status: ${newStatus}`);
 
   if (!tasks) {
-    console.error('Can not find tasks.');
-    return;
-  } else {
-    console.log(tasks);
+      console.error("No tasks found.");
+      return;
   }
+
+  // Mapping through tasks to update the status and ensure date consistency
   tasks = tasks.map((task) => {
-    if (task.id === droppedTaskId) {
-      return { ...task, status: newStat };
-    }
-    return task;
+    // Matching the task by ID
+      if (task.id == droppedTaskId) { 
+          // Validating and formatting date
+          const validDate = dayjs(task.date).isValid()
+              ? dayjs(task.date).format("YYYY-MM-DDTHH:mm")
+              : null; 
+          // Updating task
+          return { ...task, status: newStatus, date: validDate }; 
+      }
+      return task;
   });
-  
+
   try {
-    saveTS(tasks);
-    renderTaskListt();
+      // Saving updated tasks to localStorage and re-rendering
+      saveTS(tasks); 
+      renderTaskList(); 
   } catch (error) {
-    console.error("Couldn't save task. Error: ", error);
+      console.error("Could not save tasks. Error: ", error);
   }
 }
+$(document).on("click", ".delete", handleDeleteTask);
+
+// Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 
 // Widget for datepicker
-$("#taskDate").datepicker({
-  dateFormat: "mm/dd/yy",
+$("#datepicker").datepicker({
+  dateFormat: "yy-mm-dd",
   timeFormat: "hh:mm tt",
 });
-
-// $(document).ready(function () {
-//   const taskButtonEl = document.getElementById("taskbutton");
-//   taskButtonEl.addEventListener("click", handleAddTask);
-// });
