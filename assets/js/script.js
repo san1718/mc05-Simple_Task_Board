@@ -183,21 +183,41 @@ function handleDrop(event, ui) {
 $(document).on('click', '.delete', handleDeleteTask);
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-$(document).ready(function () {
-  const taskButtonEl = document.getElementById("taskbutton");
-  taskButtonEl.addEventListener("click", handleAddTask);
-});
+function handleDrop(event, ui) {
+  const droppedTaskId = ui.draggable[0].dataset.taskId;
+  const newStat = event.target.id;
+  let tasks = readTS();
+  console.log(droppedTaskId);
+  console.log(newStat);
+
+  if (!tasks) {
+    console.error('Can not find tasks.');
+    return;
+  } else {
+    console.log(tasks);
+  }
+  tasks = tasks.map((task) => {
+    if (task.id === droppedTaskId) {
+      return { ...task, status: newStat };
+    }
+    return task;
+  });
+  
+  try {
+    saveTS(tasks);
+    renderTaskListt();
+  } catch (error) {
+    console.error("Couldn't save task. Error: ", error);
+  }
+}
 
 // Widget for datepicker
-
 $("#taskDate").datepicker({
   dateFormat: "mm/dd/yy",
   timeFormat: "hh:mm tt",
 });
 
-try {
-  saveTS(tasks);
-  renderTaskListt();
-} catch (error) {
-  console.error("Couldn't save task. Error: ", error);
-}
+// $(document).ready(function () {
+//   const taskButtonEl = document.getElementById("taskbutton");
+//   taskButtonEl.addEventListener("click", handleAddTask);
+// });
