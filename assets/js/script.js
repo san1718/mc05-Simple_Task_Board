@@ -87,16 +87,34 @@ $(document).ready(function () {
 function handleAddTask(event) {
   console.log(event);
   event.preventDefault();
+
   const taskTitle = $("#taskTitle").val();
   const taskDate = $("#taskDate").val();
   const taskDescription = $("#taskDescription").val();
+  
+  // Getting valid input
+  if (!taskTitle || !taskDate || !taskDescription) {
+    alert("Fill in all of the contents.");
+    return;
+  }
+
   const task = {
+    id: generateTaskId(),
     title: taskTitle,
     date: taskDate,
     description: taskDescription,
+    status: '#todo-cards',
   };
+  
   taskList.push(task);
-  localStorage.setItem("tasks", JSON.stringify(taskList));
+  // Local storage updates after pushing
+  try {
+    localStorage.setItem('tasks', JSON.stringify(taskList));
+    renderTaskList();
+  } catch (error) {
+    console.error('Could not save to local storage, error: ', error);
+    alert('Task could not be saved. Try again later.');
+  }
 }
 
 // Todo: create a function to handle deleting a task
