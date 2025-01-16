@@ -167,9 +167,20 @@ function handleDeleteTask() {
 function handleDrop(event, ui) {
   const droppedTaskId = ui.draggable[0].dataset.taskId;
   const newStat = event.target.id;
-
   
+  let tasks = readTS();
+  // Gets new status
+  tasks = tasks.map((task) => {
+    if (task.id === droppedTaskId) {
+      return { ...task, status: newStat };
+    }
+    return task;
+  });
+  // Saving updated tasks and rendering
+  saveTS(tasks);
+  renderTaskList();
 }
+$(document).on('click', '.delete', handleDeleteTask);
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
