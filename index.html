@@ -15,8 +15,8 @@
       crossorigin="anonymous"
     />
     <link
-      rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
     />
     <link
       rel="stylesheet"
@@ -24,75 +24,78 @@
     />
 
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="icon" href="assets/images/faviconSA.png">
     <title>Task Board</title>
   </head>
 
   <body>
     <header class="p-4 mb-4 text-center border-bottom border-5">
-      <h1 class="display-3">🗣️ Task Board</h1>
+      <h1 class="display-3">Task Board</h1>
       <p class="lead">A simple Kanban board for task management</p>
     </header>
-    <div class="container">
+    <div class="Container">
       <div class="text-center mb-5">
         <button
           class="btn btn-success"
           data-bs-toggle="modal"
-          data-bs-target="#modal"
+          data-bs-target="#formModal"
         >
           Add Task
         </button>
       </div>
-      <!-- modal from getbootstrap.com -->
+      <!-- Todo: Create a modal with a form to add tasks -->
       <div
         class="modal fade"
-        id="modal"
+        id="formModal"
         tabindex="-1"
-        aria-labelledby="modalLabel"
+        aria-labelledby="formModalLabel"
         aria-hidden="true"
       >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="modalLabel">👉 Add New Task 👈</h5>
+              <h5 class="modal-title" id="formModalLabel">👉 Add New Task 👈</h5>
               <button
                 type="button"
-                class="btn-close"
+                class="close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-              ></button>
+              >
+                <span>&times;</span>
+              </button>
             </div>
             <div class="modal-body">
-              <!-- task title, task date, task description -->
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="taskTitle"
-                  placeholder="add task title here"
-                />
-                <label for="card-header">🗒️ Task Title</label>
-              </div>
-
-              <div class="form-floating mb-3">
-                <input
-                  type="datetime-local"
-                  class="form-control"
-                  id="taskDueDate"
-                  placeholder="Select a date"
-                />
-                <label for="card-date">🗓️ Task Date</label>
-              </div>
-
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="taskDescription"
-                  placeholder="describe task here"
-                />
-                <label for="card-body">✍️ Task Description</label>
-              </div>
+              <form id="taskForm">
+                <div class="form-group">
+                  <label for="taskTitle">🗒️ Task Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="taskTitle"
+                    placeholder="Enter task name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="taskDate">🗓️ Task Date</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="taskDate"
+                    placeholder="Task date"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="taskDescription">✍️ Task Description</label>
+                  <textarea
+                    class="form-control"
+                    id="taskDescription"
+                    rows="3"
+                    placeholder="Enter task description"
+                    required
+                  ></textarea>
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button
@@ -102,14 +105,19 @@
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary" id="save-button">
-                Save Changes
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="taskbutton"
+                form="taskForm"
+              >
+                Add Task
               </button>
             </div>
           </div>
         </div>
       </div>
-      <!-- modal ends here -->
+      <!--Modal ends here-->
       <div class="row swim-lanes text-center justify-content-between">
         <div class="col-12 col-lg-4 d-flex">
           <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
@@ -117,7 +125,7 @@
               <h2 class="card-title mb-1">💭 To Do 💭</h2>
             </div>
             <div class="card-body bg-light">
-              <div id="to-do-cards"></div>
+              <div id="todo-cards"></div>
             </div>
           </div>
         </div>
