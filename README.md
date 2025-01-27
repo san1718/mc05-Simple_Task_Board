@@ -1,5 +1,14 @@
 # Simple Task Board
 
+## Table of Contents
+[Overview](#overview)
+[Features](#features)
+[Technologies Used](#technologies-used)
+[Summary](#summary)
+[Links](#links)
+[Screenshots](#screenshots)
+[Credits](#credits)
+
 ## Overview
 There are times when one needs to get tasks completed but don't know where to start.
 The Simple Task Board will help the user put their ideas and tasks in the table which
@@ -11,10 +20,9 @@ It is an easier way to get the user's busy days sorted to see which task to comp
 * Add and delete the tasks if you don't need them.
 * Move around the task to the different sections accordingly.
 ## Technologies Used
-1. HTML
-2. CSS
-3. JS
-4. APIs
+1. HTML/CSS
+2. JavaScript
+3. APIs
 
 ## Summary
 An easier way to sort the user's tasks from start to end
