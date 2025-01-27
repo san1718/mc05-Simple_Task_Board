@@ -30,6 +30,6 @@ An easier way to sort the user's tasks from start to end
 <img width="1000" alt="removeTask" src="">
 
 ## Credits
-Office Hours
-HTML and JS help: Thomas WHite, Tala Awwad
+Office Hours & Xpert Learning
+HTML and JS help: Thomas White, Tala Awwad
 [Bootstrap](https://getbootstrap.com/)

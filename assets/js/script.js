@@ -117,6 +117,7 @@ function handleAddTask(event) {
     console.error("Could not save to local storage, error: ", error);
     alert("Task could not be saved. Try again later.");
   }
+
   // Clears all for new input and hides modal
   $("taskTitle").val("");
   $("#taskDate").val("");
@@ -139,6 +140,7 @@ function renderTaskList() {
     }
   });
 }
+
 // Sorting tasks and re-rendering
 $("#sortOptions").on("change", function () {
   const selectedT = $(this).val();
@@ -171,37 +173,37 @@ function handleDrop(event, ui) {
   const droppedTaskId = ui.draggable[0].dataset.taskId;
   // Getting the ID of the drop target (new lane)
   const newStatus = event.target.id;
-  
+
   // Reading tasks from localStorage
-  let tasks = readTS(); 
+  let tasks = readTS();
   console.log(`Dropped Task ID: ${droppedTaskId}`);
   console.log(`New Status: ${newStatus}`);
 
   if (!tasks) {
-      console.error("No tasks found.");
-      return;
+    console.error("No tasks found.");
+    return;
   }
 
   // Mapping through tasks to update the status and ensure date consistency
   tasks = tasks.map((task) => {
     // Matching the task by ID
-      if (task.id == droppedTaskId) { 
-          // Validating and formatting date
-          const validDate = dayjs(task.date).isValid()
-              ? dayjs(task.date).format("YYYY-MM-DDTHH:mm")
-              : null; 
-          // Updating task
-          return { ...task, status: newStatus, date: validDate }; 
-      }
-      return task;
+    if (task.id == droppedTaskId) {
+      // Validating and formatting date
+      const validDate = dayjs(task.date).isValid()
+        ? dayjs(task.date).format("YYYY-MM-DDTHH:mm")
+        : null;
+      // Updating task
+      return { ...task, status: newStatus, date: validDate };
+    }
+    return task;
   });
 
   try {
-      // Saving updated tasks to localStorage and re-rendering
-      saveTS(tasks); 
-      renderTaskList(); 
+    // Saving updated tasks to localStorage and re-rendering
+    saveTS(tasks);
+    renderTaskList();
   } catch (error) {
-      console.error("Could not save tasks. Error: ", error);
+    console.error("Could not save tasks. Error: ", error);
   }
 }
 $(document).on("click", ".delete", handleDeleteTask);
