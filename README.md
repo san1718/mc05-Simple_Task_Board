@@ -27,7 +27,7 @@ An easier way to sort the user's tasks from start to end
 ## Screenshots
 <img width="1000" alt="Homepage" src="https://github.com/san1718/mc05-Simple_Task_Board/blob/main/assets/images/Home.png">
 <img width="1000" alt="addTask" src="https://github.com/san1718/mc05-Simple_Task_Board/blob/main/assets/images/NewTask.png">
-<img width="1000" alt="removeTask" src="">
+<img width="1000" alt="removeTask" src="https://github.com/san1718/mc05-Simple_Task_Board/blob/main/assets/images/delete.png">
 
 ## Credits
 Office Hours & Xpert Learning
