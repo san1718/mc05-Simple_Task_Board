@@ -1,43 +1,66 @@
-# Simple Task Board
+# 📌 Simple Task Board
 
 ## Table of Contents
-[Overview](#overview)
-[Features](#features)
-[Technologies Used](#technologies-used)
-[Summary](#summary)
-[Links](#links)
-[Screenshots](#screenshots)
-[Credits](#credits)
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation & Usage](#installation--usage)
+- [Summary](#summary)
+- [Links](#links)
+- [Screenshots](#screenshots)
+- [Credits](#credits)
 
 ## Overview
-There are times when one needs to get tasks completed but don't know where to start.
-The Simple Task Board will help the user put their ideas and tasks in the table which
-they'll be able to track the start, progress, and end of each task assigned.
-It is an easier way to get the user's busy days sorted to see which task to complete first.
+Managing multiple tasks can feel overwhelming, especially when you don’t know where to start. **Simple Task Board** provides a structured way to track tasks from start to finish. With an intuitive drag-and-drop interface, users can visually organize tasks into different progress stages: **Not Yet Started, In Progress, and Completed**. This helps users prioritize their workflow efficiently.
 
 ## Features
-* Task Board to manage tasks.
-* Add and delete the tasks if you don't need them.
-* Move around the task to the different sections accordingly.
+✅ Drag-and-drop task management  
+✅ Add, edit, and delete tasks  
+✅ Track progress with color-coded deadlines  
+✅ Persistent task storage using **localStorage**  
+✅ Responsive and user-friendly interface  
+
 ## Technologies Used
-1. HTML/CSS
-2. JavaScript
-3. APIs
+- **Front-end:** HTML, CSS, JavaScript  
+- **Frameworks/Libraries:** Bootstrap  
+- **Storage:** LocalStorage  
+
+## Installation & Usage
+### 1️⃣ Clone the Repository  
+```sh
+git clone git@github.com:san1718/mc05-Simple_Task_Board.git
+cd mc05-Simple_Task_Board
+```
+
+### 2️⃣ Open the Application  
+Simply open `index.html` in your preferred browser.  
+
+OR, start a local server:  
+```sh
+npx live-server
+```
 
 ## Summary
-An easier way to sort the user's tasks from start to end
+The **Simple Task Board** provides an easy and effective way to track and organize tasks from start to completion. Whether for work or personal projects, users can visually manage their workload and stay on top of deadlines.
 
 ## Links
-[Home](https://github.com/san1718/mc05-Simple_Task_Board)
-<br />
-[Deployed](https://san1718.github.io/mc05-Simple_Task_Board/)
+🔗 [GitHub Repository](https://github.com/san1718/mc05-Simple_Task_Board)  
+🚀 [Live Demo](https://san1718.github.io/mc05-Simple_Task_Board/)  
 
-## Screenshots
-<img width="1000" alt="Homepage" src="https://github.com/san1718/mc05-Simple_Task_Board/blob/main/assets/images/Home.png">
-<img width="1000" alt="addTask" src="https://github.com/san1718/mc05-Simple_Task_Board/blob/main/assets/images/NewTask.png">
-<img width="1000" alt="removeTask" src="https://github.com/san1718/mc05-Simple_Task_Board/blob/main/assets/images/delete.png">
+## Screenshots  
+
+📌 **Homepage**  
+<img width="1000" alt="Homepage" src="https://github.com/san1718/mc05-Simple_Task_Board/blob/main/assets/images/Home.png">  
+
+📌 **Adding a New Task**  
+<img width="1000" alt="addTask" src="https://github.com/san1718/mc05-Simple_Task_Board/blob/main/assets/images/NewTask.png">  
+
+📌 **Deleting a Task**  
+<img width="1000" alt="removeTask" src="https://github.com/san1718/mc05-Simple_Task_Board/blob/main/assets/images/delete.png">  
 
 ## Credits
-Office Hours & Xpert Learning
-HTML and JS help: Thomas White, Tala Awwad
-[Bootstrap](https://getbootstrap.com/)
+This project was developed with guidance from **Office Hours & Xpert Learning**.  
+Special thanks to:  
+👨‍💻 **Thomas White & Tala Awwad** (HTML & JS support)  
+🎨 **[Bootstrap](https://getbootstrap.com/)** (Styling framework)  
+
