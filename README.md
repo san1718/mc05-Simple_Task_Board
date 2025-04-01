@@ -26,6 +26,7 @@ Managing multiple tasks can feel overwhelming, especially when you don’t know 
 - **Storage:** LocalStorage  
 
 ## Installation & Usage
+For local use:
 ### 1️⃣ Clone the Repository  
 ```sh
 git clone git@github.com:san1718/mc05-Simple_Task_Board.git
